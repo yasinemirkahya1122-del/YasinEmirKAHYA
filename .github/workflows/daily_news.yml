@@ -1,0 +1,35 @@
+name: Günlük Teknoloji Haberleri Botu
+
+on:
+  schedule:
+    # Türkiye Saati ile tam 19:00 (UTC 16:00)
+    - cron: '0 16 * * *'
+  workflow_dispatch: # İstediğin an elle de çalıştırabilmen için
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu Klonla
+        uses: actions/checkout@v3
+
+      - name: Python Ortamını Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Gerekli Paketleri Yükle
+        run: pip install google-generativeai
+
+      - name: Gemini API'den Haberleri Çek
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python fetch_news.py
+
+      - name: Otomatik Commit ve Push
+        run: |
+          git config --global user.name "Yasin Emir KAHYA (Bot)"
+          git config --global user.email "bot@yasinemirkahya.com"
+          git add news.json
+          git commit -m "Günlük haberler otomatik güncellendi [TSİ 19:00]" || exit 0
+          git push
