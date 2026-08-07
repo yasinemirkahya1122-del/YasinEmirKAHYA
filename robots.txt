@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yasinemirkahya1122-del.github.io/YasinEmirKAHYA/sitemap.xml
