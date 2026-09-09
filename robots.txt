@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap Lokasyonu (GitHub Pages domaininizi buraya yazın)
+Sitemap: https://kullaniciadi.github.io/sitemap.xml
